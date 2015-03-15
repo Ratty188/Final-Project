@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+    <script>
+var apikey = "t9esf5ws3mcqbcxpcedmy57s";
+var baseUrl = "http://api.rottentomatoes.com/api/public/v1.0";
+
+// construct the uri with our apikey
+var moviesSearchUrl = baseUrl + '/movies.json?apikey=' + apikey;
+var query = "The Rock";
+$(document).ready(function() {
+
+  // send off the query
+  $.ajax({
+    url: moviesSearchUrl + '&q=' + encodeURI(query),
+    dataType: "jsonp",
+    success: searchCallback
+  });
+});
+
+// callback for when we get back the results
+function searchCallback(data) {
+ var movies = data.movies;
+ $.each(movies, function(index, movie) {
+
+  if(movie.title == "The Rock"){
+    $(document.body).append('<a href="'+movie.links.alternate+'">LINK</a>');
+  }
+ });
+}
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
